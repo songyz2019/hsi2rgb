@@ -4,6 +4,6 @@ services:
     image: songyz2019/hsi2rgb
     container_name: hsi2rgb
     ports:
-      - "8144:80"
+      - "7860:7860"
     privileged: true
     restart: always
