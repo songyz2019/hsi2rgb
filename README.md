@@ -2,6 +2,7 @@
 app_file: src/main.py
 python_version: 3.12
 sdk_version: 5.9.1
+sdk: gradio
 ---
 
 # hsi2rgb
