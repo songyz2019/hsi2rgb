@@ -1,13 +1,14 @@
-.venv/
-.gradio/
-.vscode/
+# Python-generated files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.pyz
-*.pyw
-.git/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
 
-# Whatever
-uv.lock
+.gradio
+.vscode
+
+# Virtual environments
+.venv
+

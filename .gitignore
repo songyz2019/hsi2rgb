@@ -7,6 +7,8 @@ wheels/
 *.egg-info
 
 .gradio
+.vscode
 
 # Virtual environments
 .venv
+
