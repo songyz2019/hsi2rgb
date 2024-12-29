@@ -13,7 +13,7 @@ def hsi2rgb_app(hsi_file, wavelength_from=380, wavelength_to=1050, gamma=1/1.5):
             hsi_file,
             squeeze_me=True,
             mat_dtype=True,
-            struct_as_record=False
+            # struct_as_record=False
         )
         key = list(mat.keys())[3]
         hsi = mat[key]
