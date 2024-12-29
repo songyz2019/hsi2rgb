@@ -1,7 +1,3 @@
----
-sdk: docker
----
-
 # hsi2rgb
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/songyz2019/hsi2rgb?logo=docker&style=flat-square&logoColor=white)

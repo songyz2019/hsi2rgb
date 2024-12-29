@@ -58,7 +58,7 @@ def main():
         ],
         outputs=[gr.Image(format='png', label='RGB Image'), gr.Textbox(label='Extra Information')],
         title='hsi2rgb: Easily convert HSI image to RGB image',
-        article='''Download a sample [hsi image from GatorSense/MUUFLGulfport](https://github.com/GatorSense/MUUFLGulfport/raw/refs/heads/master/MUUFLGulfportSceneLabels/muufl_gulfport_campus_1_hsi_220_label.mat) <br/> for more information, please visit https://github.com/songyz2019/hsi2rgb''',
+        article='''You can download a sample [HSI image from GatorSense/MUUFLGulfport](https://github.com/GatorSense/MUUFLGulfport/raw/refs/heads/master/MUUFLGulfportSceneLabels/muufl_gulfport_campus_1_hsi_220_label.mat) <br/> for more information, please visit https://github.com/songyz2019/hsi2rgb''',
         theme=gr.themes.Citrus(),
     )
 
