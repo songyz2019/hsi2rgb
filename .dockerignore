@@ -1,0 +1,13 @@
+.venv/
+.gradio/
+.vscode/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+.git/
+
+# Whatever
+uv.lock
