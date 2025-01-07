@@ -1,7 +1,7 @@
 import gradio as gr
 import numpy as np
 import skimage
-from hsi2rgb import hsi2rgb
+from hsi2rgb.hsi2rgb import hsi2rgb
 from scipy.io import loadmat
 from einops import rearrange
 import logging
@@ -47,6 +47,7 @@ def hsi2rgb_app(hsi_file, wavelength_from=380, wavelength_to=1050, gamma=1/1.5, 
     return img, extra
 
 def main():  
+    logger.setLevel(logging.INFO)
     demo = gr.Interface(
         fn=hsi2rgb_app,
         inputs=[
@@ -65,5 +66,4 @@ def main():
     demo.launch(share=True)
 
 if __name__ == '__main__':
-    logger.setLevel(logging.INFO)
     main()

@@ -1,6 +1,8 @@
 import numpy as np
 import skimage
 
+__all__ = ['hsi2rgb']
+
 def _cie_xyz_weights(n):
     """
 
@@ -47,6 +49,7 @@ def hsi2rgb(hsi, wavelength, raw=False):
     rgb = np.einsum('C c, c h w -> h w C', transform_matrix, XYZ)
     rgb = skimage.exposure.rescale_intensity(rgb,out_range=(0,1))
     return rgb
+
 
 # from sklearn.decomposition import PCA
 # def hsi2rgb_pca(hsi):

@@ -13,4 +13,4 @@ apk del gcc g++ musl-dev libffi-dev
 EXPOSE 7860
 ADD . /app/
 ENV GRADIO_SERVER_NAME="0.0.0.0"
-CMD ["uv", "run", "src/main.py"]
+CMD ["uv", "run", "start"]
