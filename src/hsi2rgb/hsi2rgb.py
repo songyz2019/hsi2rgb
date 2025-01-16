@@ -1,5 +1,6 @@
 import numpy as np
-import skimage
+
+__all__ = ['hsi2rgb']
 
 def _cie_xyz_weights(n):
     """
@@ -31,7 +32,24 @@ def _cie_xyz_weights(n):
 
 
 def hsi2rgb(hsi, wavelength, raw=False):
-    """真彩色"""
+    """
+    Convert HSI (Hyperspectral Imaging) data to RGB format.
+    
+    Parameters:
+    hsi : numpy.ndarray
+        The input HSI data, expected to be a 3D array of shape (height, width, spectral bands) where the last dimension represents different spectral bands.
+        The values are expected to be in the range [0, 1].
+    wavelength : numpy.ndarray
+        The wavelengths corresponding to the spectral bands in the HSI data. Expected to be a 1D array of the same length as the number of spectral bands.
+        The values are expected to be in nanometers.
+    raw : bool, optional
+        If True, the function will return the raw RGB values without rescaling intensity. Default is False.
+    
+    Returns:
+    numpy.ndarray
+        The RGB representation of the input HSI data, with shape (height, width, 3). The values are rescaled to the range [0, 1] if raw is False.
+    """
+    
     x,y,z = _cie_xyz_weights(wavelength)
     X = np.sum(hsi*x, axis=2)
     Y = np.sum(hsi*y, axis=2)
@@ -45,8 +63,14 @@ def hsi2rgb(hsi, wavelength, raw=False):
 
     XYZ = np.stack([X, Y, Z])
     rgb = np.einsum('C c, c h w -> h w C', transform_matrix, XYZ)
-    rgb = skimage.exposure.rescale_intensity(rgb,out_range=(0,1))
+    
+    max_rgb = np.max(rgb, axis=(0,1))
+    min_rgb = np.min(rgb, axis=(0,1))
+    rgb = (rgb - max_rgb)/(max_rgb-min_rgb) if not raw else rgb
     return rgb
+
+
+
 
 # from sklearn.decomposition import PCA
 # def hsi2rgb_pca(hsi):

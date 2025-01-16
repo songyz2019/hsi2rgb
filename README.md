@@ -11,6 +11,15 @@ Easily convert a hyperspectral image to an RGB image.
 # Usage
 ## HuggingFace
 [Online HuggingFace Demo](https://huggingface.co/spaces/songyz2019/hsi2rgb)
+
+## uv
+1. Install [uv](https://docs.astral.sh/uv/)  
+2. Install the dependencies and start the project
+```bash
+uv sync
+uv run start
+```
+
 ## Docker
 1. Run the container: `docker run -it -p 7860:7860 songyz2019/hsi2rgb`
 2. Open `http://localhost:7860` in your browser
@@ -18,8 +27,15 @@ Easily convert a hyperspectral image to an RGB image.
 4. Set the wave length range
 5. Submit and see the result
 
-
 # Build
+## uv
+```bash
+uv sync
+uv build
+# the whl file will be in dist/ folder
+```
+
+## Docker
 1. Build the container: `docker compose build`
 2. Run the container: `docker compose up -d`
 

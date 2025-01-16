@@ -11,4 +11,5 @@ wheels/
 
 # Virtual environments
 .venv
+notebook/
 
