@@ -37,7 +37,7 @@ packages = ["src/hsi2rgb"]
 
 [dependency-groups]
 dev = [
-    "fetch-houston2013>=0.5.0",
+    "fetch-houston2013>=0.5.1",
     "jax>=0.5.3",
     "matplotlib>=3.10.1",
     "torch>=2.6.0",

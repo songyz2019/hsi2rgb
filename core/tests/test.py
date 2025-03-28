@@ -7,7 +7,6 @@ from fetch_houston2013 import fetch_muufl, fetch_houston2013, fetch_trento
 class TestHsi2Rgb(unittest.TestCase):
     def setUp(self):
         return super().setUp()
-        Path("tests/runs/").mkdir(parents=True, exist_ok=True)
 
     def test_batch_tensor(self):
         import torch
@@ -49,6 +48,7 @@ class TestHsi2Rgb(unittest.TestCase):
         self.assertEqual(rgb.shape, (hsi.shape[1], hsi.shape[2], 3))
         self.assertGreaterEqual(rgb.max(), 0)
         self.assertLessEqual(rgb.min(), 1)
+        Path("tests/runs/").mkdir(parents=True, exist_ok=True)
         imsave('tests/runs/test_muufl.png', rgb)
 
     def test_trento(self):
@@ -58,6 +58,7 @@ class TestHsi2Rgb(unittest.TestCase):
         self.assertEqual(rgb.shape, (hsi.shape[1], hsi.shape[2], 3))
         self.assertGreaterEqual(rgb.max(), 0)
         self.assertLessEqual(rgb.min(), 1)
+        Path("tests/runs/").mkdir(parents=True, exist_ok=True)
         imsave('tests/runs/test_trento.png', rgb)
 
     def test_houston2013(self):
@@ -67,6 +68,7 @@ class TestHsi2Rgb(unittest.TestCase):
         self.assertEqual(rgb.shape, (hsi.shape[1], hsi.shape[2], 3))
         self.assertGreaterEqual(rgb.max(), 0)
         self.assertLessEqual(rgb.min(), 1)
+        Path("tests/runs/").mkdir(parents=True, exist_ok=True)
         imsave('tests/runs/test_houston2013.png', rgb)  
     
     def test_jax_tensor(self):
