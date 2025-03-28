@@ -20,7 +20,8 @@ jobs:
         python-version: "3.12"
     - name: astral-sh/setup-uv
       uses: astral-sh/setup-uv@v5.4.0
-    - run: cd core
-    - run: uv sync
-    - run: uv build
-    - run: uv run tests/test1.py
+    - run: |
+        cd core
+        uv sync
+        uv build
+        uv run tests/test.py

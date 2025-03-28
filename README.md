@@ -7,7 +7,7 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hsi2rgb.svg)](https://pypi.org/project/hsi2rgb)
 
 Easily convert a hyperspectral image to an RGB image. hsi2rgb is:
-1. A python package that supports numpy, torch and jax, with gamma correction, automatically convertions, XYZ and RGB colorspace suppots, etc.
+1. A python package that easily integrates with numpy, torch and jax, with gamma correction, batch converting, automatically formats convertions, XYZ and RGB colorspace suppots, etc.
 2. A docker container that can be easily deployed as a GUI application
 
 ![ui-demo.jpg](asset/ui-demo.jpg)
@@ -26,28 +26,45 @@ rgb = hsi2rgb(hsi) # rgb: (3, 11, 11)
 3. More examples can be found in [test.py](core/tests/test.py)
 
 
-## GUI
-[Online HuggingFace Demo](https://huggingface.co/spaces/songyz2019/hsi2rgb)
-
+## GUI with Docker
+<!-- [Online HuggingFace Demo](https://huggingface.co/spaces/songyz2019/hsi2rgb) -->
 1. Run the container: `docker run -it -p 7860:7860 songyz2019/hsi2rgb`
 2. Open `http://localhost:7860` in your browser
 3. Upload your HSI image (`.mat` or `.tif`)
 4. Set the wave length range
 5. Submit and see the result
 
+## GUI with pip/pipx/uvx
+Don't like docker? You can try use the GUI with pip, pipx, or uvx
+
+```bash
+# For pip:
+pip install hsi2rgb_gui
+hsi2rgb_gui
+
+# For uv, run:
+uvx hsi2rgb_gui
+
+# For pipx:
+pip install hsi2rgb_gui
+hsi2rgb_gui
+```
+
+
 # Build
-## uv
+## Python Package
 1. Install [uv](https://docs.astral.sh/uv/)
 2. Simply sync dependicies and build
 ```bash
+cd core
 uv sync
 uv build
 ```
 
-## Docker
-> The docker app is under refactor, please use [this branch](https://github.com/songyz2019/hsi2rgb/tree/f2c76629b49659e7d16ec62958c8a972e97fde3c) to build currently.
-1. Build the container: `docker compose build`
-2. Run the container: `docker compose up -d`
+## Docker GUI
+1. Open the `gui` folder: `cd gui`
+2. Build the container: `docker compose build`
+3. Run the container: `docker compose up -d`
 
 # License
 ```text
