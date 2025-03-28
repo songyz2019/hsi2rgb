@@ -1,7 +1,7 @@
 import gradio as gr
 import numpy as np
 import skimage
-from hsi2rgb.hsi2rgb import hsi2rgb
+from hsi2rgb import hsi2rgb
 from scipy.io import loadmat
 from einops import rearrange
 import logging
@@ -36,7 +36,7 @@ def hsi2rgb_app(hsi_file, wavelength_from=380, wavelength_to=1050, gamma=1/1.5, 
 
     n_channel = hsi.shape[-1]
     wavelength = np.linspace(wavelength_from, wavelength_to, n_channel)
-    rgb = hsi2rgb(hsi, wavelength, raw=False) 
+    rgb = hsi2rgb(hsi, wavelength) 
     
     img = skimage.exposure.adjust_gamma(rgb, gamma)
 
