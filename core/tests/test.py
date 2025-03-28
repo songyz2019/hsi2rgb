@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 import numpy as np
 from hsi2rgb import hsi2rgb
 from fetch_houston2013 import fetch_muufl, fetch_houston2013, fetch_trento
@@ -6,6 +7,7 @@ from fetch_houston2013 import fetch_muufl, fetch_houston2013, fetch_trento
 class TestHsi2Rgb(unittest.TestCase):
     def setUp(self):
         return super().setUp()
+        Path("tests/runs/").mkdir(parents=True, exist_ok=True)
 
     def test_batch_tensor(self):
         import torch
