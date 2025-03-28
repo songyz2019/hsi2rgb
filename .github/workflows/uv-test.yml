@@ -25,3 +25,4 @@ jobs:
         uv sync
         uv build
         uv run tests/test.py
+        uv cache prune --ci

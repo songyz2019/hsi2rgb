@@ -25,6 +25,8 @@ rgb = hsi2rgb(hsi) # rgb: (3, 11, 11)
 ```
 3. More examples can be found in [test.py](core/tests/test.py)
 
+## GUI in Huggingface
+An online demo is available as [spaces/songyz2019/hsi2rgb](https://huggingface.co/spaces/songyz2019/hsi2rgb)
 
 ## GUI with Docker
 <!-- [Online HuggingFace Demo](https://huggingface.co/spaces/songyz2019/hsi2rgb) -->
