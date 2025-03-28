@@ -4,17 +4,20 @@ RUN mkdir /app
 WORKDIR /app
 
 # For better layer caching, src should be add after uv sync
-ADD . /app/
+ADD ./ /app/
+# Avoid unnecessary uv sync
 RUN rm -rf /app/src 
-
-RUN uv sync --frozen
+RUN uv sync --frozen --no-cache
 
 # Use these commands in alphine linux since there's no manylinux musl for scikit-image
-# The image size of alphine can be reduced to 650MB with out aggressive optimization. 
+# The image size of alphine can be reduced to 650MB without aggressive optimization. 
 # So, if the size of debian-slim is not a important problem, we can use debian-slim.
+# ADD . /app/
+# RUN rm -rf /app/src 
 # RUN apk add --no-cache gcc g++ musl-dev libffi-dev libgomp && \
 # uv sync --no-cache && \
 # apk del gcc g++ musl-dev libffi-dev
+# ADD ./src /app/src
 
 ADD ./src /app/src
 

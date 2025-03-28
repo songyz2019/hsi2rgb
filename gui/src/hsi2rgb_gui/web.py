@@ -1,16 +1,19 @@
+from typing import Literal
+import einops
 import gradio as gr
+from matplotlib import pyplot as pl
 import numpy as np
 import skimage
 from hsi2rgb import hsi2rgb
 from scipy.io import loadmat
-from einops import rearrange
 import logging
 import json
+import os
 
 logger = logging.getLogger(__name__)
 
 
-def hsi2rgb_app(hsi_file, wavelength_from=380, wavelength_to=1050, gamma=1/1.5, is_chw_input=False):
+def hsi2rgb_app(hsi_file, input_format:Literal['CHW', 'HWC']='CHW', wavelength_from=380, wavelength_to=1050, crop=(0,0,None,None), gamma=1.5):
     ext = hsi_file.split('.')[-1]
     if ext == 'mat':
         mat = loadmat(
@@ -31,20 +34,22 @@ def hsi2rgb_app(hsi_file, wavelength_from=380, wavelength_to=1050, gamma=1/1.5, 
     else:
         return
 
-    if is_chw_input:
-        hsi = rearrange(hsi, 'c h w -> h w c')
+    if input_format == 'CHW':
+        hsi = einops.rearrange(hsi, 'c h w -> h w c')
 
-    n_channel = hsi.shape[-1]
-    wavelength = np.linspace(wavelength_from, wavelength_to, n_channel)
-    rgb = hsi2rgb(hsi, wavelength) 
+    rgb = hsi2rgb(hsi, wavelength_range=(wavelength_from, wavelength_to), input_format='HWC', output_format='HWC', gamma=1) 
     
-    img = skimage.exposure.adjust_gamma(rgb, gamma)
+    img = skimage.exposure.adjust_gamma(rgb, 1/gamma)
+    
+    pl.figure()
+    histo,bin_centers = skimage.exposure.histogram(img)
+    n, bins, patches = pl.hist(histo, bins=256, facecolor='black', edgecolor='black',alpha=1, histtype='bar')
+    histo_fig = pl.gcf()
 
     extra = json.dumps({
-        'n_channel': n_channel,
         'mat_file_key': key if ext == 'mat' else None,
     })
-    return img, extra
+    return img, histo_fig, extra
 
 def main():  
     logger.setLevel(logging.INFO)
@@ -52,18 +57,20 @@ def main():
         fn=hsi2rgb_app,
         inputs=[
             gr.File(file_types=['.mat','.tiff','.tif'], type='filepath'), 
+            gr.Radio(['CHW', 'HWC'], value='CHW', label='Input Format'),
             gr.Number(380), 
             gr.Number(1050), 
-            gr.Slider(0.5, 2, 1/1.5),
-            gr.Checkbox(False, label='is CHW input', show_label=True)
+            gr.Textbox(label='Crop (x1, y1, x2, y2)', placeholder='0, 0, None, None', value='0, 0, None, None', lines=1),
+            gr.Slider(0.1, 10, 2.2),
         ],
-        outputs=[gr.Image(format='png', label='RGB Image'), gr.Textbox(label='Extra Information')],
+        outputs=[gr.Image(format='png', label='RGB Image'), gr.Plot(label='Histogram'), gr.JSON(label='Extra Information')],
         title='hsi2rgb: Easily convert HSI image to RGB image',
         article='''You can download a sample [HSI image from GatorSense/MUUFLGulfport](https://github.com/GatorSense/MUUFLGulfport/raw/refs/heads/master/MUUFLGulfportSceneLabels/muufl_gulfport_campus_1_hsi_220_label.mat) <br/> for more information, please visit https://github.com/songyz2019/hsi2rgb''',
         theme=gr.themes.Citrus(),
     )
 
-    demo.launch(share=True)
+
+    demo.launch(share = True )
 
 if __name__ == '__main__':
     main()
