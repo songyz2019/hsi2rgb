@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> This project is no longer maintained unless there is clear evidence that more people actually need and use this package. The core algorithm is integrated in [rs-fusion-datasets](https://github.com/songyz2019/rs-fusion-datasets) and the GUI is integrated in [hsi-preprocessing-toolkit](https://github.com/songyz2019/hsi-preprocessing-toolkit).
+> 
+
 # hsi2rgb
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/songyz2019/hsi2rgb?logo=docker&style=flat-square&logoColor=white)
